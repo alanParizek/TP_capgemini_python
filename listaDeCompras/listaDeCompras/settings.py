@@ -76,8 +76,12 @@ WSGI_APPLICATION = 'listaDeCompras.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.mysql',
+        'HOST': '', # localhost, nuestra maquina
+        'PORT': '3306', # mysql tiene que estar corriendo en ese puerto en la pc
+        'NAME': 'tpverduleria', # tiene que estar creada una base de datos con ese nombre en la pc
+        'USER': 'root', # el usuario default de mysql
+        'PASSWORD': '' # COMPLETAR CON TU CONTRASENIA
     }
 }
 
