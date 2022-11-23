@@ -11,14 +11,21 @@
 <body>
 
     <div class="loginBox">
-        <img src="{% static 'images/background.jpg' %}" alt="imagen de frutas">
+        <img src="{% static 'images/logo.png' %}" class="avatar" alt="Logo chango">
+        <h1>Login Here</h1>
+        <form action="">
+            <!-- USERNAME -->
+            <label for="username">Username</label>
+            <input type="text" placeholder="Enter Username">
+
+            <!-- PASSWORD -->
+            <label for="password">Password</label>
+            <input type="password" placeholder="Enter Password">
+
+            <input type="submit" value="Log In">
+
+            <a href="#">Don't have an account</a>
+        </form>
     </div>
-    <!-- <h2> Login </h2>
-    <form action="/recibiendoget/" method="get">
-        Por favor introduzca su nombre:
-        <input type="text" name="nombre">
-        <input type="text" name="apellido">
-        <input type="submit" value="Enviar">
-    </form> -->
 </body>
 </html>
