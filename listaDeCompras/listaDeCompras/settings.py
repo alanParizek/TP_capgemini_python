@@ -81,7 +81,7 @@ DATABASES = {
         'PORT': '3306', # mysql tiene que estar corriendo en ese puerto en la pc
         'NAME': 'tpverduleria', # tiene que estar creada una base de datos con ese nombre en la pc
         'USER': 'root', # el usuario default de mysql
-        'PASSWORD': 'admin' # COMPLETAR CON TU CONTRASENIA
+        'PASSWORD': '' # COMPLETAR CON TU CONTRASENIA
     }
 }
 
@@ -124,6 +124,7 @@ STATIC_URL = 'static/'
 
 STATICFILES_DIRS = (
    os.path.join(BASE_DIR, 'listaDeCompras/static'),
+   os.path.join(BASE_DIR, 'usuarios/static'),
 )
 
 # Default primary key field type
