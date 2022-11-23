@@ -55,7 +55,7 @@ ROOT_URLCONF = 'listaDeCompras.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR,"listaDeCompras/mytemplates")],
+        'DIRS': [os.path.join(BASE_DIR,"listaDeCompras/mytemplates"), os.path.join(BASE_DIR,"usuarios/mytemplates")],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
