@@ -55,7 +55,7 @@ ROOT_URLCONF = 'listaDeCompras.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR,"listaDeCompras/mytemplates")],
+        'DIRS': [os.path.join(BASE_DIR,"usuarios/mytemplates")],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -81,7 +81,7 @@ DATABASES = {
         'PORT': '3306', # mysql tiene que estar corriendo en ese puerto en la pc
         'NAME': 'tpverduleria', # tiene que estar creada una base de datos con ese nombre en la pc
         'USER': 'root', # el usuario default de mysql
-        'PASSWORD': 'admin' # COMPLETAR CON TU CONTRASENIA
+        'PASSWORD': '' # COMPLETAR CON TU CONTRASENIA
     }
 }
 
