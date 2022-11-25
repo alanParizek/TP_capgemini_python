@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'styles/styleregister.css' %}">
+</head>
+<body>
+
+    <div class="loginBox">
+        <img src="{% static 'images/logo2.png' %}" class="avatar" alt="Logo chango">
+        <h1>Register Here</h1>
+        <form action="">
+            <!-- USERNAME -->
+            <label for="username">Username</label>
+            <input type="text" placeholder="Enter Username">
+
+            <!-- NAME -->
+            <label for="username">Name</label>
+            <input type="text" placeholder="Enter Name">
+
+            <!-- SURNAME -->
+            <label for="username">Surname</label>
+            <input type="text" placeholder="Enter Surname">
+
+            <!-- EMAIL -->
+            <label for="username">Email</label>
+            <input type="email" placeholder="Enter Email">
+
+            <!-- PASSWORD -->
+            <label for="password">Password</label>
+            <input type="password" placeholder="Enter Password">
+
+            <input type="submit" value="Sign Up">
+
+            <a href="#">Go back</a>
+        </form>
+    </div>
+</body>
+</html>
