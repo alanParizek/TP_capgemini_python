@@ -17,6 +17,6 @@ from django.urls import path
 from usuarios.views import *
 
 urlpatterns = [
-    path('inicio/', inicio), # ahora /usuario/inicio lleva al login
-    path('registro/', registro),
+    path('inicio/', inicio, name = "inicio"), # ahora /usuario/inicio lleva al login
+    path('registro/', registro, name = "registro"),
 ]
