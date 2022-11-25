@@ -1,17 +1,22 @@
 from django.db import models
+from productos import Producto
 
 class Chango(models.Model):
-    def agregarProducto(self, producto, cantidad=1):
+    def agregarProducto(self, producto: Producto, cantidad=1):
+        cXp = ChangoXproducto(chango=self, producto=producto, cantidad=cantidad)
+        cXp.save()
+
+    def sacarCantProducto(self, producto: Producto, cantidad=1):
         pass
-    def sacarCantProducto(self, producto, cantidad=1):
+    
+    def sacarTodosDeUnProducto(self, producto: Producto):
         pass
-    def sacarTodosDeUnProducto(self, producto):
-        pass
+    
     def vaciar(self):
         pass
     
 
-class changoXproducto(models.Model):
+class ChangoXproducto(models.Model):
     chango = models.ForeignKey(
         'carrito.Chango',
         on_delete=models.CASCADE,

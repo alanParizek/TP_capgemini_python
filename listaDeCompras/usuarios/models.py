@@ -5,6 +5,8 @@ from django.contrib.auth.models import AbstractUser
 class Usuario(AbstractUser):
     chango = models.ForeignKey(
         'carrito.Chango',
-        on_delete=models.CASCADE, # REVISAR
+        on_delete=models.SET_NULL,
         null=True
     )
+    
+    
