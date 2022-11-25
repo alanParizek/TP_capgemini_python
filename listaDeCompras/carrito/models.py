@@ -18,6 +18,6 @@ class changoXproducto(models.Model):
         )
     producto = models.ForeignKey(
         'productos.Producto',
-        on_delete=models.CASCADE, # REVISAR
+        on_delete=models.CASCADE,
         )
     cantidad = models.IntegerField()

@@ -6,4 +6,5 @@ class Usuario(AbstractUser):
     chango = models.ForeignKey(
         'carrito.Chango',
         on_delete=models.CASCADE, # REVISAR
+        null=True
     )
