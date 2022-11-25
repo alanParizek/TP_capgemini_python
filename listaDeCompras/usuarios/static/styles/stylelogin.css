@@ -50,7 +50,7 @@ body {
     margin-bottom: 20px;
 }
 
-.loginBox input[type="text"], .loginBox input[type="password"] {
+#id_username, #id_password {
     border: none;
     border-bottom: 1px solid white;
     background: transparent;
@@ -75,4 +75,8 @@ body {
     font-size: 12px;
     line-height: 20px;
     color: darkgray;
+}
+
+.helptext {
+    display: none;
 }

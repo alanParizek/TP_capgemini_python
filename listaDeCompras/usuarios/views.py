@@ -1,9 +1,14 @@
 from django.http import HttpResponse
 from django.shortcuts import render
+from .forms import *
 
 
 def inicio(request):
-    return render(request, "login.html")
+    form = LogInForm()
+    context = {'form':form}
+    return render(request, "login.html", context)
 
 def registro(request):
-    return render(request, "register.html")
+    form = SignUpForm()
+    context = {'form':form}
+    return render(request, "register.html", context)
