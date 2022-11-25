@@ -18,4 +18,5 @@ from usuarios.views import *
 
 urlpatterns = [
     path('inicio/', inicio), # ahora /usuario/inicio lleva al login
+    path('registro/', registro),
 ]
