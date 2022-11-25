@@ -1,6 +1,7 @@
 from django.db import models
 from productos import Producto
 
+# SACAR LA CLASE CHANGO Y USAR SOLO CHANGOXPR
 class Chango(models.Model):
     def agregarProducto(self, producto: Producto, cantidad=1):
         cXp = ChangoXproducto(chango=self, producto=producto, cantidad=cantidad)
