@@ -14,30 +14,10 @@
         <img src="{% static 'images/logo2.png' %}" class="avatar" alt="Logo chango">
         <h1>Register Here</h1>
         <form action="">
-            <!-- USERNAME -->
-            <label for="username">Username</label>
-            <!-- <input type="text" placeholder="Enter Username"> -->
             {{ form }}
-
-            <!-- NAME -->
-            <label for="username">Name</label>
-            <input type="text" placeholder="Enter Name">
-
-            <!-- SURNAME -->
-            <label for="username">Surname</label>
-            <input type="text" placeholder="Enter Surname">
-
-            <!-- EMAIL -->
-            <label for="username">Email</label>
-            <input type="email" placeholder="Enter Email">
-
-            <!-- PASSWORD -->
-            <label for="password">Password</label>
-            <input type="password" placeholder="Enter Password">
-
             <input type="submit" value="Sign Up">
 
-            <a href="#">Go back</a>
+            <a href="{% url 'inicio' %}">Go back</a>
         </form>
     </div>
 </body>

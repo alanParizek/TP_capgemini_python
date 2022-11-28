@@ -14,17 +14,11 @@
         <img src="{% static 'images/logo2.png' %}" class="avatar" alt="Logo chango">
         <h1>Login Here</h1>
         <form action="">
-            <!-- USERNAME -->
-            <label for="username">Username</label>
-            <input type="text" placeholder="Enter Username">
-
-            <!-- PASSWORD -->
-            <label for="password">Password</label>
-            <input type="password" placeholder="Enter Password">
+            {{ form }}
 
             <input type="submit" value="Log In">
 
-            <a href="#">Don't have an account</a>
+            <a href="{% url 'registro' %}">Don't have an account</a>
         </form>
     </div>
 </body>
