@@ -1,23 +1,25 @@
 from django.db import models
 from productos.models import Producto
 from django.conf import settings
-from django import User
+from django.contrib.auth.models import User
 import django
 
 
 def prueba():
     # crear usuario:
-
     usuario = User.objects.create_user('john', 'lennon@thebeatles.com', 'johnpassword')
+    usuario.save()
 
     # chango:
     chango = Chango(usuario)
+    chango.save()
 
     # productos:
     producto1 = Producto(nombre="tomate", precio=200)
+    producto1.save()
 
     # productos en el chango:
-
+    
 
     # falta probar: poder loguearse y que al loguearse te muestre tu carrito y te deje agregar prods ahi.
 
