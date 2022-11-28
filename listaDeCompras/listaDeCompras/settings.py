@@ -127,8 +127,8 @@ USE_TZ = True
 STATIC_URL = 'static/'
 
 STATICFILES_DIRS = (
-   os.path.join(BASE_DIR, 'listaDeCompras/static'),
    os.path.join(BASE_DIR, 'usuarios/static'),
+   os.path.join(BASE_DIR, 'carrito/static'),
 )
 
 # Default primary key field type

@@ -5,4 +5,6 @@ from .forms import *
 def carrito(request):
     formCarrito = CarritoForm()
     context = {'form':formCarrito}
-    return render(request, "carrito.html", context)
+    return render(request, "carrito.html") #, context)
+    
+    
