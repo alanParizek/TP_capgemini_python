@@ -34,7 +34,7 @@ class VDI:
         producto = self.reconocerProducto(img)
         if producto != 'broccoli':
             cantidad = self.contarProductos(img, producto)
-        resultado = (producto, cantidad)
+        resultado = [producto, cantidad]
         return resultado
 
     def reconocerProducto(self, img):
@@ -45,7 +45,7 @@ class VDI:
                 if id_clase == producto:
                     resultados = self.clases[id_clase]
         if resultados == '':
-            resultados = 'no hay coincidencias'
+            resultados = -1
         return resultados
 
     def contarProductos(self, img, producto):

@@ -22,14 +22,22 @@ class obtenedorDeProductos:
         self.ID_productos = {
 
         }
-
         for i in self.todosLosProductos:
-            2
+            self.ID_productos.update({self.todosLosProductos[i] : i})
         
 
     def obtenerProducto(self, imgPath):
         visualizacion = VDI()
-        return visualizacion.visualizarImagen(imgPath)
+        producto = visualizacion.visualizarImagen(imgPath)[0]
+        cantidad = visualizacion.visualizarImagen(imgPath)[0]
+        listaProductos = self.ID_productos.keys()
+        for item in listaProductos:
+            if producto == -1:
+                resultado = -1    
+            elif item == producto:
+                resultado = self.ID_productos.get(item)
+
+        return (resultado, cantidad)
 
 
         
