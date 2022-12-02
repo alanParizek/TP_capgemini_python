@@ -15,9 +15,8 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from obtenedorDeProductos.views import funcion
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('usuario/', include('usuarios.urls')), # ahora /usuario/inicio lleva al login
-    path('funcion/', include('obtenedorDeProductos.urls'))
+    path('funcion/', funcion)
 ]

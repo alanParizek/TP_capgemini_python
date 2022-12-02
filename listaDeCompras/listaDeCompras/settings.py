@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'carrito',
     'usuarios',
     'productos',
+    'obtenedorDeProductos'
 ]
 
 MIDDLEWARE = [
@@ -85,7 +86,7 @@ DATABASES = {
         'PORT': '3306', # mysql tiene que estar corriendo en ese puerto en la pc
         'NAME': 'tpverduleria', # tiene que estar creada una base de datos con ese nombre en la pc
         'USER': 'root', # el usuario default de mysql
-        'PASSWORD': '' # COMPLETAR CON TU CONTRASENIA
+        'PASSWORD': '1234' # COMPLETAR CON TU CONTRASENIA
     }
 }
 
