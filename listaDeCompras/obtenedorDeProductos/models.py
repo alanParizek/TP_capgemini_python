@@ -16,7 +16,7 @@ sys.path.append(BASE_DIR)
 
 from productos.models import Producto
 
-class obtenedorDeProductos:
+class ObtenedorDeProductos:
     def __init__(self):
         self.todosLosProductos = Producto.objects.all()
         
@@ -24,6 +24,7 @@ class obtenedorDeProductos:
     def obtenerProducto(self, imgPath):
         visualizacion = VDI()
         (nombreProducto, cantidad) = visualizacion.visualizarImagen(imgPath)
+        # validar que exista un producto con ese nombre?
         return (Producto.objects.all().filter(nombre=nombreProducto).first(), cantidad)
 
 

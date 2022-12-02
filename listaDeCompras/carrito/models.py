@@ -2,33 +2,15 @@ from django.db import models
 from productos.models import Producto
 from django.conf import settings
 from django.contrib.auth.models import User
-import django
+from django.utils.timezone import now
 
-
-def prueba():
-    # crear usuario:
-    usuario = User.objects.create_user('john', 'lennon@thebeatles.com', 'johnpassword')
-    usuario.save()
-
-    # chango:
-    chango = Chango(usuario)
-    chango.save()
-
-    # productos:
-    producto1 = Producto(nombre="tomate", precio=200)
-    producto1.save()
-
-    # productos en el chango:
-    
-
-    # falta probar: poder loguearse y que al loguearse te muestre tu carrito y te deje agregar prods ahi.
 
 class Chango(models.Model):
     usuario = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
     )
-    fechaCreacion = models.DateTimeField(default=django.utils.timezone.now)
+    fechaCreacion = models.DateTimeField(default=now)
     fechaPago = models.DateTimeField(null=True)
     fuePagado = models.BooleanField(default=False)
         
@@ -36,37 +18,25 @@ class Chango(models.Model):
         self.usuario = usuario
         
     def agregarProducto(self, producto: Producto, cantidad=1):
-        if (ChangoXproducto.objects.get(chango=self, producto=producto).exists()):
-            self.agregarCantProducto(producto, cantidad)
-        else:
-            cXp = ChangoXproducto(chango=self, producto=producto, cantidad=cantidad)
-            cXp.save()
-
-    def sacarCantProducto(self, producto: Producto, cantidad=1):
-        # Validar que este en el carrito?
-        cXp = ChangoXproducto.objects.get(chango=self, producto=producto)
-        if cXp.cantidad == cantidad:
-            cXp.delete()
-        else:
-            cXp.cantidad -= cantidad
-            cXp.save()
-
-    def agregarCantProducto(self, producto: Producto, cantidad=1):
-        # Validar que este en el carrito?
-        cXp = ChangoXproducto.objects.get(chango=self, producto=producto)
-        if cXp.cantidad == cantidad:
-            cXp.delete()
-        else:
-            cXp.cantidad -= cantidad
-            cXp.save()
+        try:
+            cXp = ChangoXproducto.objects.get(chango=self, producto=producto)
+        except ChangoXproducto.DoesNotExist:
+            cXp = ChangoXproducto(chango=self, producto=producto, cantidad=0)
+        cXp.cantidad += cantidad
+        cXp.save()
     
     def sacarTodosDeUnProducto(self, producto: Producto):
         # Validar que este en el carrito?
         ChangoXproducto.objects.get(chango=self, producto=producto).delete()
     
-    def vaciar(self):
-        # Validar que no esté vacio?
-        ChangoXproducto.objects.all().filter(chango=self).delete()
+    def cerrarCompra(self):
+        self.fechaPago = now()
+        self.fuePagado = True
+        self.save()
+
+    @staticmethod
+    def carritoDelUsuario(usuario: User):
+        return Chango.objects.get(usuario=usuario, fuePagado=False)
 
 class ChangoXproducto(models.Model):
     chango = models.ForeignKey(
