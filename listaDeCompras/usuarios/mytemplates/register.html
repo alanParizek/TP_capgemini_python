@@ -13,8 +13,15 @@
     <div class="loginBox">
         <img src="{% static 'images/logo2.png' %}" class="avatar" alt="Logo chango">
         <h1>Register Here</h1>
-        <form action="">
-            {{ form }}
+        <form method="POST" action="">
+            {% csrf_token %}
+            {% for field in form %}
+                <!-- {{ form.username.label}}
+                {{ form.username}} -->
+
+                {{ field.label }}
+                {{ field }}
+            {% endfor %}
             <input type="submit" value="Sign Up">
 
             <a href="{% url 'inicio' %}">Go back</a>
