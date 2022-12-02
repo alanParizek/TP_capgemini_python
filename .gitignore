@@ -1,3 +1,11 @@
 */__pycache__/*
 listaDeCompras/listaDeCompras/__pycache__/settings.cpython-310.pyc
 listaDeCompras/listaDeCompras/__pycache__/urls.cpython-310.pyc
+listaDeCompras/listaDeCompras/__pycache__/__init__.cpython-310.pyc
+listaDeCompras/usuarios/__pycache__/admin.cpython-310.pyc
+listaDeCompras/usuarios/__pycache__/__init__.cpython-310.pyc
+listaDeCompras/usuarios/__pycache__/apps.cpython-310.pyc
+listaDeCompras/usuarios/__pycache__/forms.cpython-310.pyc
+listaDeCompras/usuarios/__pycache__/models.cpython-310.pyc
+listaDeCompras/usuarios/__pycache__/urls.cpython-310.pyc
+listaDeCompras/usuarios/__pycache__/views.cpython-310.pyc
