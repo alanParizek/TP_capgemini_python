@@ -9,3 +9,10 @@ listaDeCompras/usuarios/__pycache__/forms.cpython-310.pyc
 listaDeCompras/usuarios/__pycache__/models.cpython-310.pyc
 listaDeCompras/usuarios/__pycache__/urls.cpython-310.pyc
 listaDeCompras/usuarios/__pycache__/views.cpython-310.pyc
+listaDeCompras/carrito/__pycache__/models.cpython-310.pyc
+listaDeCompras/carrito/migrations/__pycache__/0001_initial.cpython-310.pyc
+listaDeCompras/productos/__pycache__/models.cpython-310.pyc
+listaDeCompras/productos/migrations/__pycache__/0001_initial.cpython-310.pyc
+listaDeCompras/productos/migrations/__pycache__/0002_producto_secalculaengramos.cpython-310.pyc
+listaDeCompras/usuarios/migrations/__pycache__/0001_initial.cpython-310.pyc
+listaDeCompras/usuarios/migrations/__pycache__/0002_delete_usuario.cpython-310.pyc
