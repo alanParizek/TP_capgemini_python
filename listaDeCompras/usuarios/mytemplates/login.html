@@ -13,8 +13,11 @@
     <div class="loginBox">
         <img src="{% static 'images/logo2.png' %}" class="avatar" alt="Logo chango">
         <h1>Login Here</h1>
-        <form action="">
-            {{ form }}
+        <form method="POST" action="">
+
+            <input type="text" name="username" placeholder="Username..." class="form-control">
+            
+            <input type="password" name="password" placeholder="Password..." class="form-control" >
 
             <input type="submit" value="Log In">
 

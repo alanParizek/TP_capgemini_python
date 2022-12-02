@@ -50,7 +50,7 @@ body {
     margin-bottom: 20px;
 }
 
-#id_username, #id_password {
+.loginBox input[type="text"], .loginBox input[type="password"] {
     border: none;
     border-bottom: 1px solid white;
     background: transparent;
