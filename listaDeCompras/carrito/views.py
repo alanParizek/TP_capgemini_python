@@ -3,8 +3,9 @@ from .forms import *
 
 # Create your views here.
 def carrito(request):
-    formCarrito = CarritoForm()
-    context = {'form':formCarrito}
-    return render(request, "carrito.html") #, context)
+    # formCarrito = CarritoForm()
+    # context = {'form':formCarrito}
+    return render(request, "carrito.html") 
+#, context)
     
     

@@ -50,7 +50,7 @@ body {
     margin-bottom: 20px;
 }
 
-#id_username, #id_first_name, #id_last_name, #id_email, #id_password {
+#id_username, #id_first_name, #id_last_name, #id_email, #id_password1, #id_password2 {
     border: none;
     border-bottom: 1px solid white;
     background: transparent;
