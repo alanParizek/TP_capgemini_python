@@ -1,5 +1,7 @@
 from django.shortcuts import render, redirect
 # from django.forms import inlineformset_factory
+from django.contrib.auth.models import User
+from carrito.models import Chango
 from .forms import SignUpForm
 
 from django.contrib.auth import authenticate, login, logout
@@ -24,10 +26,8 @@ def registro(request):
     if request.method == "POST":
         form = SignUpForm(request.POST)
         if form.is_valid():
-            form.save()
-            usuario = User
-            nuevoChango = Chango(usuario=request.POST[''])
-
+            usuario = form.save()
+            Chango.objects.create(usuario=usuario)
             return redirect('inicio')
 
     context = {'form':form}

@@ -14,7 +14,8 @@ class Chango(models.Model):
     fechaPago = models.DateTimeField(null=True)
     fuePagado = models.BooleanField(default=False)
         
-    def __init__(self, usuario: User):
+    def __init__(self, usuario: User, *args, **kwargs):
+        super(Chango, self).__init__(*args, **kwargs)
         self.usuario = usuario
         
     def agregarProducto(self, producto: Producto, cantidad=1):
@@ -35,7 +36,7 @@ class Chango(models.Model):
         self.save()
 
     @staticmethod
-    def carritoDelUsuario(usuario: User):
+    def carritoDelUsuario(usuario):
         return Chango.objects.get(usuario=usuario, fuePagado=False)
 
 class ChangoXproducto(models.Model):
