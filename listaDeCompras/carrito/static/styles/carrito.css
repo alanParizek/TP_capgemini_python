@@ -9,6 +9,13 @@ body {
     height: 100vh;
 }
 
+.imageLoader {
+    width: 320px;
+    height: 380px;
+    background: #e73c31;
+    color: white;
+}
+
 .loginBox {
     width: 320px;
     height: 380px;
