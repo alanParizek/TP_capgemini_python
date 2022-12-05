@@ -32,7 +32,7 @@ class VDI:
         cantidad = BROCCOLI_DEF_QTY
         img = cv2.imread(imgPath)
         producto = self.reconocerProducto(img)
-        if producto != 'broccoli':
+        if producto != 'brocoli':
             cantidad = self.contarProductos(img, producto)
         resultado = [producto, cantidad]
         return resultado
@@ -52,7 +52,7 @@ class VDI:
         gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
         blur = cv2.GaussianBlur(gray, (11, 11), 0)
 
-        if producto == 'apple':
+        if producto == 'manzana':
             canny = cv2.Canny(blur, MANZANA_CANNY[0],MANZANA_CANNY[1],MANZANA_CANNY[2])
         else:
             canny = cv2.Canny(blur, BANANA_CANNY[0],BANANA_CANNY[1],BANANA_CANNY[2])
