@@ -10,7 +10,7 @@ body {
 }
 
 .imageLoader {
-    width: 320px;
+    width: 800px;
     height: 380px;
     background: #e73c31;
     color: white;
@@ -52,12 +52,12 @@ body {
     display: block;
 }
 
-.loginBox input {
+.imageLoader input {
     width: 100%;
     margin-bottom: 20px;
 }
 
-#id_username, #id_password {
+.imageLoader input[type="file"] {
     border: none;
     border-bottom: 1px solid white;
     background: transparent;
@@ -67,7 +67,7 @@ body {
     font-size: 16px;
 }
 
-.loginBox input[type="submit"] {
+.imageLoader input[type="submit"] {
     border: none;
     outline: none;
     height: 40px;
