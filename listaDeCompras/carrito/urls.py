@@ -15,7 +15,8 @@ Including another URLconf
 """
 from django.urls import path
 from carrito.views import *
+from .views import ChangoController
 
 urlpatterns = [
-    path('carrito/', carrito, name = "carrito") # ahora /usuario/inicio lleva al login
+    path('carrito/', ChangoController.verCarrito, name="carrito") # ahora /usuario/inicio lleva al login
 ]
