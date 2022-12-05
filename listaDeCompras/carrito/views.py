@@ -13,12 +13,6 @@ from .forms import AgregarProductoForm
 
 # info de valor: form.fields['manager'].initial = manager_employee_id
 
-# Create your views here.
-def carrito(request):
-    # formCarrito = CarritoForm()
-    # context = {'form':formCarrito}
-    return render(request, "carrito.html") 
-#, context)
 class ChangoController():
     @staticmethod
     @login_required()
