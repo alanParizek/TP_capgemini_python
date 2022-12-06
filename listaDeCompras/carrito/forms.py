@@ -8,8 +8,9 @@ class AgregarProductoForm(ModelForm):
         model = ChangoXproducto
         fields = ['producto', 'cantidad']
 
-    # def __init__(self, *args, **kwargs):
-    #     self.fields['producto'].queryset = Producto.objects.all()
+    def __init__(self, *args, **kwargs):
+        super(AgregarProductoForm, self).__init__(*args, **kwargs)
+        self.fields['producto'].queryset = Producto.objects.all()
 
     @classmethod
     def formularioConValoresIniciales(cls, valoresIniciales: tuple[Producto, int] ):

@@ -19,7 +19,20 @@
         </form>
     </div>
     <div>
-            {{ formAgregarProducto }}
+            <form action="/usuario/carrito/item/" method="POST">
+                {% csrf_token %}
+                {{ formAgregarProducto }}
+                <input type="submit" value="Agregar Producto">
+            </form>
     </div>
+
+    <ul>
+        {% for item in itemsCarrito %}
+        <li><form action="/usuario/carrito/item/{{item.producto_id}}/eliminacion/" method="POST">
+            {% csrf_token %}
+            <span>{{item}} {{item.cantidad}}</span> <input type="submit" value="Eliminar Item">
+        </form></li>
+        {% endfor %}
+    </ul>
 </body>
 </html>

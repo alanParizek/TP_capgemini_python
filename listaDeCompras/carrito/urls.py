@@ -17,5 +17,7 @@ from django.urls import path
 from .views import ChangoController
 
 urlpatterns = [
-    path('carrito/', ChangoController.verCarrito, name="carrito") # ahora /usuario/inicio lleva al login
+    path('ver/', ChangoController.verCarrito, name="carrito"), # ahora /usuario/inicio lleva al login
+    path('item/', ChangoController.agregarProducto, name="agregarItemCarrito"),
+    path('item/<int:idProd>/eliminacion/', ChangoController.sacarProducto, name="eliminarItemCarrito"),
 ]

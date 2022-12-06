@@ -14,10 +14,6 @@ class Chango(models.Model):
     fechaPago = models.DateTimeField(null=True)
     fuePagado = models.BooleanField(default=False)
         
-    def __init__(self, usuario: User, *args, **kwargs):
-        super(Chango, self).__init__(*args, **kwargs)
-        self.usuario = usuario
-        
     def agregarProducto(self, producto: Producto, cantidad=1):
         try:
             cXp = ChangoXproducto.objects.get(chango=self, producto=producto)
@@ -36,10 +32,10 @@ class Chango(models.Model):
         self.save()
 
     @staticmethod
-    def carritoDelUsuario(usuario):
+    def carritoDelUsuario(usuario: User):
         return Chango.objects.get(usuario=usuario, fuePagado=False)
 
-class ChangoXproducto(models.Model):
+class ChangoXproducto(models.Model):    
     chango = models.ForeignKey(
         'carrito.Chango',
         on_delete=models.CASCADE,
@@ -48,4 +44,7 @@ class ChangoXproducto(models.Model):
         'productos.Producto',
         on_delete=models.CASCADE,
         )
-    cantidad = models.IntegerField()
+    cantidad = models.PositiveIntegerField()
+
+    def __str__(self):
+        return self.producto.__str__()
