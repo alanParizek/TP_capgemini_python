@@ -1,6 +1,7 @@
 from django.forms import ModelForm, Form
 from django import forms
-from .models import ChangoXproducto, Producto
+from .models import ChangoXproducto
+from productos.models import Producto, ProductoContable, ProductoEnGramos
 
 class AgregarProductoForm(ModelForm):     
     # valor inicial para el ModelChoiceField (buscar la respuesta que habla de eso):
@@ -11,7 +12,7 @@ class AgregarProductoForm(ModelForm):
 
     def __init__(self, *args, **kwargs):
         super(AgregarProductoForm, self).__init__(*args, **kwargs)
-        self.fields['producto'].queryset = Producto.objects.all()
+        self.fields['producto'].queryset = Producto.objects.all().select_subclasses()
 
     @classmethod
     def formularioConValoresIniciales(cls, valoresIniciales: tuple[Producto, int] ):

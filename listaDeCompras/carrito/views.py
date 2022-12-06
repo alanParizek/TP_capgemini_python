@@ -27,8 +27,10 @@ class ChangoController():
         except:
             formAgregarProducto = AgregarProductoForm()
         chango = ChangoController.getChangoUser(request)
-        itemsCarrito = ChangoXproducto.objects.filter(chango=chango).map(
-            lambda changoProd: {"changoXProd":changoProd, "unidad":changoProd.producto.cantidad})
+        itemsCarrito = map(
+            lambda changoProd: {"changoXprod":changoProd, "unidad":(Producto.objects.get_subclass(pk=changoProd.producto_id)).unidad},
+            ChangoXproducto.objects.filter(chango=chango)
+            )
         # agregar al context los productos en el carrito del usuario logueado para que los muestre (obtenemos el usuario de la session)
         context = {'formAgregarProducto':formAgregarProducto, 'itemsCarrito':itemsCarrito}
         return render(request, "carrito.html", context)

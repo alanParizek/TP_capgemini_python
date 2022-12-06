@@ -20,6 +20,7 @@ class Chango(models.Model):
         except ChangoXproducto.DoesNotExist:
             cXp = ChangoXproducto(chango=self, producto=producto, cantidad=0)
         cXp.cantidad += cantidad
+        cXp.desnormalizarPrecio()
         cXp.save()
     
     def sacarTodosDeUnProducto(self, producto: Producto):
@@ -36,9 +37,7 @@ class Chango(models.Model):
         return Chango.objects.get(usuario=usuario, fuePagado=False)
 
 class ChangoXproducto(models.Model): 
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.precio = self.producto.calcularPrecio(self.cantidad)
+
 
     chango = models.ForeignKey(
         'carrito.Chango',
@@ -51,5 +50,9 @@ class ChangoXproducto(models.Model):
     cantidad = models.PositiveIntegerField()
     precio = models.PositiveIntegerField(default=0)
 
+    def desnormalizarPrecio(self) -> None:
+        producto = Producto.objects.get_subclass(pk=self.producto_id)
+        self.precio = producto.calcularPrecio(self.cantidad)
+    
     def __str__(self):
         return self.producto.__str__()

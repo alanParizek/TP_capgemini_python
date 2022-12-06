@@ -29,9 +29,9 @@
 
     <ul>
         {% for item in itemsCarrito %}
-        <li><form action="/usuario/carrito/item/{{item.producto_id}}/eliminacion/" method="POST">
+        <li><form action="/usuario/carrito/item/{{item.changoXprod.producto_id}}/eliminacion/" method="POST">
             {% csrf_token %}
-            <span>{{item}} {{item.cantidad}} {{item.precio}}</span> <input type="submit" value="Eliminar Item">
+            <span>{{item.changoXprod}}: {{item.changoXprod.cantidad}} - Precio: {{item.changoXprod.precio}} </span> <input type="submit" value="Eliminar Item">
         </form></li>
         {% endfor %}
     </ul>
