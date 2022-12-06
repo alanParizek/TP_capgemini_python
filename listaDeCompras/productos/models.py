@@ -8,7 +8,7 @@ class TipoDeCalculoEquivocado(Exception):
 class Producto(models.Model):
     nombre = models.CharField(max_length=100)
     precio = models.IntegerField()
-    seCalculaEnGramos = models.BooleanField(default=False)
+    # seCalculaEnGramos = models.BooleanField(default=False)
     
     def __str__(self):
         return self.nombre
@@ -20,8 +20,12 @@ class Producto(models.Model):
         else:
             return self.precio * cantidad
 
-    def calcularPrecioParaGramos(self, cantidad):
-        if not self.seCalculaEnGramos:
-            raise TipoDeCalculoEquivocado
-        else:
+class ProductoContable(Producto):
+    unidad = 'unidades'
+    def calcularPrecioParaUnidades(self, cantidad):
+        return self.precio * cantidad
+
+class ProductoEnGramos(Producto):
+    unidad = 'gramos'
+    def calcularPrecioParaUnidades(self, cantidad):
             return self.precio * cantidad/100

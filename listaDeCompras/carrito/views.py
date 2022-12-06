@@ -1,11 +1,13 @@
+from PIL import Image
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.contrib import auth
 from .models import Chango, ChangoXproducto
-from .forms import AgregarProductoForm
+from .forms import AgregarProductoForm, ImageForm
 from productos.models import Producto
+from obtenedorDeProductos.models import ObtenedorDeProductos
 
 
 # vamos a tener fomulario foto y formulario carrito
@@ -25,7 +27,8 @@ class ChangoController():
         except:
             formAgregarProducto = AgregarProductoForm()
         chango = ChangoController.getChangoUser(request)
-        itemsCarrito = ChangoXproducto.objects.filter(chango=chango)
+        itemsCarrito = ChangoXproducto.objects.filter(chango=chango).map(
+            lambda changoProd: {"changoXProd":changoProd, "unidad":changoProd.producto.cantidad})
         # agregar al context los productos en el carrito del usuario logueado para que los muestre (obtenemos el usuario de la session)
         context = {'formAgregarProducto':formAgregarProducto, 'itemsCarrito':itemsCarrito}
         return render(request, "carrito.html", context)
@@ -45,7 +48,17 @@ class ChangoController():
     @login_required()
     def chequearFoto(request):
         # agarra la foto, llama al VDI y mete en la session los valores de producto y cantidad
-        request.session['valoresIniciales'] = (producto, cantidad)# agregarle la tupla con el VDI
+        formImagen = ImageForm(request.POST, request.FILES)
+        producto: Producto
+        cantidad: int
+        image_field = formImagen.cleaned_data['img']
+
+        print(image_field)
+        print(type(image_field))
+
+        imagen = Image.open(image_field)
+        (producto, cantidad) = ObtenedorDeProductos.obtenerProducto(imagen)
+        request.session['valoresIniciales'] = (producto, cantidad)
         return redirect('carrito')
 
     @staticmethod

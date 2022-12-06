@@ -35,7 +35,11 @@ class Chango(models.Model):
     def carritoDelUsuario(usuario: User):
         return Chango.objects.get(usuario=usuario, fuePagado=False)
 
-class ChangoXproducto(models.Model):    
+class ChangoXproducto(models.Model): 
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.precio = self.producto.calcularPrecio(self.cantidad)
+
     chango = models.ForeignKey(
         'carrito.Chango',
         on_delete=models.CASCADE,
@@ -45,6 +49,7 @@ class ChangoXproducto(models.Model):
         on_delete=models.CASCADE,
         )
     cantidad = models.PositiveIntegerField()
+    precio = models.PositiveIntegerField(default=0)
 
     def __str__(self):
         return self.producto.__str__()

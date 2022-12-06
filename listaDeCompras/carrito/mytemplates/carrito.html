@@ -11,11 +11,11 @@
 <body>
 
     <div class="imageLoader">
-        <form action="">
+        <form action="POST" enctype="multipart/form-data">
+            {% csrf_token %}
             <input type="file" name="imagen" placeholder="Upload image..." class="form-control">
 
             <input type="submit" value="Cargar Imagen">
-
         </form>
     </div>
     <div>
@@ -24,13 +24,14 @@
                 {{ formAgregarProducto }}
                 <input type="submit" value="Agregar Producto">
             </form>
+            
     </div>
 
     <ul>
         {% for item in itemsCarrito %}
         <li><form action="/usuario/carrito/item/{{item.producto_id}}/eliminacion/" method="POST">
             {% csrf_token %}
-            <span>{{item}} {{item.cantidad}}</span> <input type="submit" value="Eliminar Item">
+            <span>{{item}} {{item.cantidad}} {{item.precio}}</span> <input type="submit" value="Eliminar Item">
         </form></li>
         {% endfor %}
     </ul>

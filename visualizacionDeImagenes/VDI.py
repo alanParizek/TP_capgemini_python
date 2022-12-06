@@ -2,6 +2,7 @@ from pathlib import Path
 import os
 import cv2
 import numpy as np
+from PIL import Image
 
 BASE_DIR = str(Path(__file__).resolve().parent.parent)
 
@@ -28,16 +29,17 @@ class VDI:
                 nombre_clase=nombre_clase.strip()
                 self.clases.append(nombre_clase)
 
-    def visualizarImagen(self, imgPath):
-        cantidad = BROCCOLI_DEF_QTY
-        img = cv2.imread(imgPath)
-        producto = self.reconocerProducto(img)
-        if producto != 'brocoli':
-            cantidad = self.contarProductos(img, producto)
-        resultado = [producto, cantidad]
-        return resultado
+    @staticmethod
+    # convertimos de la clase Image de Pillow al formato en el que abre las imagenes cv.open()
+    def convertirImagen(img: Image):
+        img = img.convert('RGB') 
+        img = np.array(img) 
+        # Convert RGB to BGR 
+        img = img[:, :, ::-1].copy()
+        return img
 
     def reconocerProducto(self, img):
+        img = self.convertirImagen(img)
         resultados = ''
         (id_clase, puntaje, caja)=self.model.detect(img)
         for id_clase, puntaje, caja in zip(id_clase, puntaje, caja):
@@ -49,6 +51,8 @@ class VDI:
         return resultados
 
     def contarProductos(self, img, producto):
+        img = self.convertirImagen(img)
+        
         gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
         blur = cv2.GaussianBlur(gray, (11, 11), 0)
 

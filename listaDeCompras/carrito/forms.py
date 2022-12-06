@@ -1,4 +1,5 @@
-from django.forms import ModelForm
+from django.forms import ModelForm, Form
+from django import forms
 from .models import ChangoXproducto, Producto
 
 class AgregarProductoForm(ModelForm):     
@@ -19,3 +20,7 @@ class AgregarProductoForm(ModelForm):
         form.fields['producto'].initial = producto #si no anda fijarse con form.initial['producto'] = producto
         form.fields['cantidad'].initial = cantidad
         return form
+    
+class ImageForm(Form):
+    img = forms.ImageField()
+            

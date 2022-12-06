@@ -2,6 +2,7 @@ from django.db import models
 
 from pathlib import Path
 import sys
+from PIL import Image
 
 # cambiar como se hacen los imports en el caso en que rompa
 BASE_DIR = str(Path(__file__).resolve().parent.parent)
@@ -20,16 +21,11 @@ class ObtenedorDeProductos:
     def __init__(self):
         self.todosLosProductos = Producto.objects.all()
         
-
-    def obtenerProducto(self, imgPath):
+    def obtenerProducto(self, img: Image):
         visualizacion = VDI()
-        (nombreProducto, cantidad) = visualizacion.visualizarImagen(imgPath)
+        nombreProducto = visualizacion.reconocerProducto(img)
         # validar que exista un producto con ese nombre?
-        return (Producto.objects.all().filter(nombre=nombreProducto).first(), cantidad)
-
-
+        producto = Producto.objects.all().filter(nombre=nombreProducto).first()
+        cantidad = 4
         
-        
-
-
-
+        return (producto, cantidad)
