@@ -30,10 +30,13 @@ class ChangoController():
         # agrega los items del carrito para mostrar
         chango = ChangoController.getChangoUser(request)
         itemsCarrito = map(
-            lambda changoProd: {"changoXprod":changoProd, "unidad":(Producto.objects.get_subclass(pk=changoProd.producto_id)).unidad},
+            lambda changoProd: {"changoXprod": changoProd,
+                                "unidad": (Producto.objects.get_subclass(pk=changoProd.producto_id)).unidad},
             ChangoXproducto.objects.filter(chango=chango)
             )
-        context = {'itemsCarrito':itemsCarrito, 'formAgregarProducto':formAgregarProducto, 'formSubirImagen':ImageForm()}
+        listaDePrecios = Producto.listaDePrecios()
+        context = {'itemsCarrito': itemsCarrito, 'formAgregarProducto': formAgregarProducto,
+                   'formSubirImagen': ImageForm(), 'listaDePrecios': listaDePrecios}
         return render(request, "carrito.html", context)
 
     @staticmethod

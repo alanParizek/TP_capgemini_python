@@ -11,6 +11,9 @@ class Producto(models.Model):
     nombre = models.CharField(max_length=100)
     precio = models.DecimalField(max_digits=25, decimal_places=2, validators=[MinValueValidator(0)])
 
+    objects = InheritanceManager()
+    # permite usar .select_subclasses() para que instancie las subclases en lugar de Producto
+
     def __str__(self):
         producto = Producto.objects.get_subclass(pk=self.pk)
         return self.nombre + ' - ' + producto.unidad
@@ -18,15 +21,12 @@ class Producto(models.Model):
     def precioRedondeado(self, cantidad) -> float:
         return round(self.calcularPrecio(cantidad), 2)
 
-    def calcularPrecio(self, cantidad) -> float:
-        pass
-
-    @staticmethod
-    def cantidad(cantidad: int):
-        pass
-
-    # permite usar .select_subclasses() para que instancie las subclases en lugar de Producto
-    objects = InheritanceManager()
+    @classmethod
+    def listaDePrecios(cls):
+        return map(
+            lambda producto: (producto.pk, producto.calcularPrecio(1)),
+            Producto.objects.all().select_subclasses()
+        )
 
 class ProductoContable(Producto):
     unidad = 'unidad/es'
