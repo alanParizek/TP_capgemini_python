@@ -32,3 +32,7 @@ def registro(request):
 
     context = {'form': form}
     return render(request, "register.html", context)
+
+def desolguearse(request):
+    logout(request)
+    return redirect('inicio')

@@ -87,3 +87,9 @@ body {
 .helptext {
     display: none;
 }
+
+.logout {
+    background-color: #d36039;
+    display: flex;
+    justify-content: end;
+}

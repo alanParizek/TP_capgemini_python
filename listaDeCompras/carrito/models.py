@@ -4,7 +4,7 @@ from productos.models import Producto
 from django.conf import settings
 from django.contrib.auth.models import User
 from django.utils.timezone import now
-
+from ventas.models import Venta
 
 class Chango(models.Model):
     usuario = models.ForeignKey(
@@ -31,6 +31,7 @@ class Chango(models.Model):
     def cerrarCompra(self):
         self.fechaPago = now()
         self.fuePagado = True
+        Venta.registrarVenta(self)
         self.save()
 
     @staticmethod

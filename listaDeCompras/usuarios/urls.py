@@ -17,7 +17,8 @@ from django.urls import path, include
 from usuarios.views import *
 
 urlpatterns = [
-    path('inicio/', inicio, name = "inicio"), # ahora /usuario/inicio lleva al login
+    path('inicio/', inicio, name = "inicio"),
     path('registro/', registro, name = "registro"),
+    path('logout/', desolguearse, name="logout"),
     path('carrito/', include('carrito.urls')),
 ]

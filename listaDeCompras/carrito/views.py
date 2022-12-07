@@ -63,7 +63,6 @@ class ChangoController():
         imagen: Image = Image.open(image_field)
         (producto, cantidad) = ObtenedorDeProductos().obtenerProducto(imagen)
         if producto == None: # si no se encontro el producto, setea en None los valores iniciales y asi django no los carga en el form
-            request.session['productoNoReconocido'] = True
             request.session['valoresIniciales'] = (None, None)
         else:
             request.session['valoresIniciales'] = (producto.pk, cantidad)
@@ -103,15 +102,12 @@ class ChangoController():
     @staticmethod
     @login_required()
     def cerrarCompra(request):
+        ChangoController.eliminarDefaultsSession(request)
         chango = ChangoController.getChangoUser(request)
         chango.cerrarCompra()
-        nuevoChango = Chango(usuario=request.user)
-        chango.save()
+        usuario = ChangoController.getUser(request)
+        nuevoChango = Chango(usuario=usuario)
         nuevoChango.save()
-        # vaciar el carrito de ese usuario (obtenemos el usuario de la session)
-        # crearle un carrito nuevo
-        # hacer otras cosas?
-        # redireccionar a la pagina de ver carrito
         return HttpResponse('Gracias por su compra, sera atendido por nuestros cajeros en un instante!')
 
     
