@@ -47,14 +47,14 @@
             let cantIngresada = document.getElementById("id_cantidad").value
             let prodIngresado = document.getElementById("id_producto").value
 
-            {# calcula el precio #}
+            // calcula el precio
             let nuevoPrecio = cantIngresada * precioUnitario(prodIngresado)
-            {# para que no sea negativo: #}
+            // para que no sea negativo: 
             nuevoPrecio = Math.max(0, nuevoPrecio)
-            {# para que muestre solo 2 decimales: #}
+            // para que muestre solo 2 decimales:
             nuevoPrecio = Math.round(nuevoPrecio * 100) / 100
-            {# para que si es NaN (cualquier error que haya, por ejemplo si tenemos seleccionada la #}
-            {# opción default de producto) no muestre NaN si no una cadena vacia#}
+            //  para que si es NaN (cualquier error que haya, por ejemplo si tenemos seleccionada la
+            // opción default de producto) no muestre NaN si no una cadena vacia
             if (isNaN(nuevoPrecio)){
                 return ""
             }
@@ -68,7 +68,7 @@
             {% endfor %}
             return listaDePrecios[prod]
         }
-        {# Setea los eventos que disparan el calculo del precio #}
+        // Setea los eventos que disparan el calculo del precio
         onload = actualizarPrecio
         document.onkeyup = actualizarPrecio
         document.onclick = actualizarPrecio
