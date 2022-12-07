@@ -41,12 +41,13 @@
     <script>
         function actualizarPrecio() {
             let precio = document.getElementById("precio_prod_ingresado");
-            precio.innerHTML = precioSeleccionUsuario()
+            precio.innerHTML = precioSeleccionUsuario();
         }
         function precioSeleccionUsuario(){
-            let cantIngresada = document.getElementById("id_cantidad").value
-            let prodIngresado = document.getElementById("id_producto").value
+            let cantIngresada = document.getElementById("id_cantidad").value;
+            let prodIngresado = document.getElementById("id_producto").value;
 
+<<<<<<< HEAD
             // calcula el precio
             let nuevoPrecio = cantIngresada * precioUnitario(prodIngresado)
             // para que no sea negativo: 
@@ -55,20 +56,36 @@
             nuevoPrecio = Math.round(nuevoPrecio * 100) / 100
             //  para que si es NaN (cualquier error que haya, por ejemplo si tenemos seleccionada la
             // opción default de producto) no muestre NaN si no una cadena vacia
+=======
+            
+            // {# calcula el precio #}
+            let nuevoPrecio = cantIngresada * precioUnitario(prodIngresado);
+            // {# para que no sea negativo: #}
+            nuevoPrecio = Math.max(0, nuevoPrecio);
+            // {# para que muestre solo 2 decimales: #}
+            nuevoPrecio = Math.round(nuevoPrecio * 100) / 100;
+            // {# para que si es NaN (cualquier error que haya, por ejemplo si tenemos seleccionada la #}
+            // {# opción default de producto) no muestre NaN si no una cadena vacia#}
+            
+>>>>>>> 9f1c33e73efeb85a5a131ee0043cc3235ee63821
             if (isNaN(nuevoPrecio)){
-                return ""
+                return "";
             }
-            return nuevoPrecio.toString()
+            return nuevoPrecio.toString();
         }
 
         function precioUnitario(prod) {
-            let listaDePrecios = {}
+            let listaDePrecios = {};
             {% for prod, precio in listaDePrecios %}
-                listaDePrecios[{{ prod }}] = {{ precio }}
+                listaDePrecios[{{ prod }}] = {{ precio }};
             {% endfor %}
-            return listaDePrecios[prod]
+            return listaDePrecios[prod];
         }
+<<<<<<< HEAD
         // Setea los eventos que disparan el calculo del precio
+=======
+        // {# Setea los eventos que disparan el calculo del precio #}
+>>>>>>> 9f1c33e73efeb85a5a131ee0043cc3235ee63821
         onload = actualizarPrecio
         document.onkeyup = actualizarPrecio
         document.onclick = actualizarPrecio
