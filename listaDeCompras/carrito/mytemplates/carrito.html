@@ -12,7 +12,8 @@
     <div class="logout">
         <a href="{% url 'inicio' %}">Log Out</a>
     </div>
-
+    <br>
+    <br>
     <div class="imageLoader">
         <form method="POST" action="/usuario/carrito/item/imagen/" enctype="multipart/form-data" >
             {% csrf_token %}
@@ -20,7 +21,7 @@
             <input type="submit" value="Cargar Imagen">
         </form>
     </div>
-    <div>
+    <div class="imageConfirm">
             <form action="/usuario/carrito/item/" method="POST">
                 {% csrf_token %}
                 {{ formAgregarProducto }}
@@ -32,7 +33,7 @@
             
     </div>
 
-    <ul>
+    <ul class="itemsList">
         {% for item in itemsCarrito %}
         <li><form action="/usuario/carrito/item/{{item.changoXprod.producto_id}}/eliminacion/" method="POST">
             {% csrf_token %}
