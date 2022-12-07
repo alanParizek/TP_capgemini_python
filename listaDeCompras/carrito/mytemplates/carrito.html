@@ -41,6 +41,12 @@
         {% endfor %}
     </ul>
 
+    <div>
+        <form action="/usuario/venta/" method="POST">
+            <input type="submit" value="Cerrar Compra">
+        </form>
+    </div>
+
     <script>
         function actualizarPrecio() {
             let precio = document.getElementById("precio_prod_ingresado");

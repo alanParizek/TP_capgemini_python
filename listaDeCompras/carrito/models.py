@@ -10,7 +10,7 @@ class Chango(models.Model):
     usuario = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
-    )
+        )
     fechaCreacion = models.DateTimeField(default=now)
     fechaPago = models.DateTimeField(null=True)
     fuePagado = models.BooleanField(default=False)
@@ -34,6 +34,12 @@ class Chango(models.Model):
         Venta.registrarVenta(self)
         self.save()
 
+    def total(self):
+        return sum(map(lambda cXp: cXp.precio, ChangoXproducto.objects.filter(chango=self)))
+
+    def getProductos(self):
+        return ChangoXproducto.objects.filter(chango=self)
+
     @staticmethod
     def carritoDelUsuario(usuario: User):
         return Chango.objects.get(usuario=usuario, fuePagado=False)
@@ -48,10 +54,10 @@ class ChangoXproducto(models.Model):
         on_delete=models.CASCADE,
         )
     cantidad = models.PositiveIntegerField()
-    precio = models.DecimalField(max_digits=25, decimal_places=2, validators=[MinValueValidator(0)], default=0.00)
+    precio = models.DecimalField(max_digits=25, decimal_places=2, validators=[MinValueValidator(0)])
 
     def desnormalizarPrecio(self) -> None:
-        producto = Producto.objects.get_subclass(pk=self.producto_id)
+        producto = Producto.objects.get_subclass(pk=self.producto)
         self.precio = producto.precioRedondeado(self.cantidad)
     
     def __str__(self):

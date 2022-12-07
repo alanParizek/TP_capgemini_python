@@ -17,9 +17,5 @@ from django.urls import path, include
 from usuarios.views import *
 
 urlpatterns = [
-    path('inicio/', inicio, name = "inicio"),
-    path('registro/', registro, name = "registro"),
-    path('logout/', desolguearse, name="logout"),
-    path('carrito/', include('carrito.urls')),
-    path('venta/', include('ventas.urls')),
+    
 ]

@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'usuarios',
     'carrito',
     'obtenedorDeProductos',
+    'ventas',
     # 'django_extensions',
 ]
 
