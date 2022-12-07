@@ -20,4 +20,5 @@ urlpatterns = [
     path('ver/', ChangoController.verCarrito, name="carrito"), # ahora /usuario/inicio lleva al login
     path('item/', ChangoController.agregarProducto, name="agregarItemCarrito"),
     path('item/<int:idProd>/eliminacion/', ChangoController.sacarProducto, name="eliminarItemCarrito"),
+    path('item/imagen', ChangoController.chequearFoto, name="chequearFoto")
 ]

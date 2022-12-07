@@ -11,10 +11,9 @@
 <body>
 
     <div class="imageLoader">
-        <form action="POST" enctype="multipart/form-data">
+        <form method="POST" action="/usuario/carrito/item/imagen" enctype="multipart/form-data" >
             {% csrf_token %}
-            <input type="file" name="imagen" placeholder="Upload image..." class="form-control">
-
+            {{ formSubirImagen }}
             <input type="submit" value="Cargar Imagen">
         </form>
     </div>

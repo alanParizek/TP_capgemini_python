@@ -24,8 +24,14 @@ class ProductoContable(Producto):
     def calcularPrecio(self, cantidad):
         return self.precio * cantidad
 
+    def cantidad(self, cantidad: int):
+        return cantidad
+
 class ProductoEnGramos(Producto):
     unidad = 'gramos'
         
     def calcularPrecio(self, cantidad):
-            return self.precio * cantidad/100
+        return self.precio * cantidad/100
+
+    def cantidad(self, cantidad: int):
+        return None

@@ -50,7 +50,7 @@ class VDI:
             resultados = -1
         return resultados
 
-    def contarProductos(self, img, producto):
+    def contarProductos(self, img, producto: str):
         img = self.convertirImagen(img)
         
         gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)

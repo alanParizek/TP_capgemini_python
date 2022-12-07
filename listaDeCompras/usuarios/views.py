@@ -30,5 +30,5 @@ def registro(request):
             Chango.objects.create(usuario=usuario)
             return redirect('inicio')
 
-    context = {'form':form}
+    context = {'form': form}
     return render(request, "register.html", context)

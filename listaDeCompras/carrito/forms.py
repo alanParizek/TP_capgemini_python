@@ -15,10 +15,10 @@ class AgregarProductoForm(ModelForm):
         self.fields['producto'].queryset = Producto.objects.all().select_subclasses()
 
     @classmethod
-    def formularioConValoresIniciales(cls, valoresIniciales: tuple[Producto, int] ):
+    def formularioConValoresIniciales(cls, valoresIniciales: tuple[int, int] ):
         form = AgregarProductoForm()
-        producto, cantidad = valoresIniciales
-        form.fields['producto'].initial = producto #si no anda fijarse con form.initial['producto'] = producto
+        idProducto, cantidad = valoresIniciales
+        form.fields['producto'].initial = Producto.objects.get(pk=idProducto) #si no anda fijarse con form.initial['producto'] = ...
         form.fields['cantidad'].initial = cantidad
         return form
     

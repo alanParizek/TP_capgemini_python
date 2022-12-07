@@ -22,17 +22,18 @@ class ChangoController():
     @staticmethod
     @login_required()
     def verCarrito(request):
+        # agrega el formulario para agregar el producto. Si los tiene cargados, muestra los valores iniciales
         try:
             formAgregarProducto = AgregarProductoForm.formularioConValoresIniciales(request.session['valoresIniciales'])
         except:
             formAgregarProducto = AgregarProductoForm()
+        # agrega los items del carrito para mostrar
         chango = ChangoController.getChangoUser(request)
         itemsCarrito = map(
             lambda changoProd: {"changoXprod":changoProd, "unidad":(Producto.objects.get_subclass(pk=changoProd.producto_id)).unidad},
             ChangoXproducto.objects.filter(chango=chango)
             )
-        # agregar al context los productos en el carrito del usuario logueado para que los muestre (obtenemos el usuario de la session)
-        context = {'formAgregarProducto':formAgregarProducto, 'itemsCarrito':itemsCarrito}
+        context = {'itemsCarrito':itemsCarrito, 'formAgregarProducto':formAgregarProducto, 'formSubirImagen':ImageForm()}
         return render(request, "carrito.html", context)
 
     @staticmethod
@@ -53,14 +54,16 @@ class ChangoController():
         formImagen = ImageForm(request.POST, request.FILES)
         producto: Producto
         cantidad: int
+        if not formImagen.is_valid():
+            return redirect('carrito')
         image_field = formImagen.cleaned_data['img']
-
-        print(image_field)
-        print(type(image_field))
-
-        imagen = Image.open(image_field)
-        (producto, cantidad) = ObtenedorDeProductos.obtenerProducto(imagen)
-        request.session['valoresIniciales'] = (producto, cantidad)
+        imagen: Image = Image.open(image_field)
+        (producto, cantidad) = ObtenedorDeProductos().obtenerProducto(imagen)
+        if producto == None: # si no se encontro el producto, setea en None los valores iniciales y asi django no los carga en el form
+            request.session['productoNoReconocido'] = True
+            request.session['valoresIniciales'] = (None, None)
+        else:
+            request.session['valoresIniciales'] = (producto.pk, cantidad)
         return redirect('carrito')
 
     @staticmethod
