@@ -1,3 +1,4 @@
+from django.core.validators import MinValueValidator
 from django.db import models
 from productos.models import Producto
 from django.conf import settings
@@ -36,9 +37,7 @@ class Chango(models.Model):
     def carritoDelUsuario(usuario: User):
         return Chango.objects.get(usuario=usuario, fuePagado=False)
 
-class ChangoXproducto(models.Model): 
-
-
+class ChangoXproducto(models.Model):
     chango = models.ForeignKey(
         'carrito.Chango',
         on_delete=models.CASCADE,
@@ -48,11 +47,11 @@ class ChangoXproducto(models.Model):
         on_delete=models.CASCADE,
         )
     cantidad = models.PositiveIntegerField()
-    precio = models.PositiveIntegerField(default=0)
+    precio = models.DecimalField(max_digits=25, decimal_places=2, validators=[MinValueValidator(0)], default=0.00)
 
     def desnormalizarPrecio(self) -> None:
         producto = Producto.objects.get_subclass(pk=self.producto_id)
-        self.precio = producto.calcularPrecio(self.cantidad)
+        self.precio = producto.precioRedondeado(self.cantidad)
     
     def __str__(self):
         return self.producto.__str__()
