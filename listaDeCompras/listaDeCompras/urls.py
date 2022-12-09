@@ -15,9 +15,12 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from django.views.generic.base import RedirectView
+from django.conf import settings
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('usuario/', include('usuarios.urls')), # ahora /usuario/inicio lleva al login
+    path('', RedirectView.as_view(url='usuario/inicio'), name='login-redirect')
     # path('carrito/', include('carrito.urls')), ahorra /carrito/carrito lleva al carrito
 ]

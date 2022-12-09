@@ -57,7 +57,7 @@ class ChangoXproducto(models.Model):
     precio = models.DecimalField(max_digits=25, decimal_places=2, validators=[MinValueValidator(0)])
 
     def desnormalizarPrecio(self) -> None:
-        producto = Producto.objects.get_subclass(pk=self.producto)
+        producto = Producto.objects.get_subclass(pk=self.producto_id)
         self.precio = producto.precioRedondeado(self.cantidad)
     
     def __str__(self):

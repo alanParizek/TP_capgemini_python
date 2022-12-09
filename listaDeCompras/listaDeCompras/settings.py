@@ -27,7 +27,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-LOGIN_URL = 'usuario/inicio'
+LOGIN_URL = '/usuario/inicio'
 
 # Application definition
 

@@ -39,7 +39,7 @@ body {
     border-radius: 20px;
 }
 
-.logout a{
+.logout form{
     background-color: #e73c31;
     display: flex;
     text-decoration: none;

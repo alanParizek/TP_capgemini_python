@@ -31,7 +31,7 @@ class ChangoController():
         chango = ChangoController.getChangoUser(request)
         itemsCarrito = map(
             lambda changoProd: {"changoXprod": changoProd,
-                                "unidad": (Producto.objects.get_subclass(pk=changoProd.producto)).unidad},
+                                "unidad": (Producto.objects.get_subclass(pk=changoProd.producto_id)).unidad},
             ChangoXproducto.objects.filter(chango=chango)
             )
         listaDePrecios = Producto.listaDePrecios()

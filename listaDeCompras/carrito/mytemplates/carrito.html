@@ -10,7 +10,11 @@
 </head>
 <body>
     <div class="logout">
-        <a href="{% url 'inicio' %}">Log Out</a>
+        <!-- <a href="{% url 'inicio' %}">Log Out</a> -->
+        <form action="/usuario/logout/" method="POST">
+            {% csrf_token %}
+            <input type="submit" value="Log Out">
+        </form>
     </div>
     <br>
     <br>

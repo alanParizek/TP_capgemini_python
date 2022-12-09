@@ -3,6 +3,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
 from carrito.models import Chango
 from .forms import SignUpForm
+from django.contrib import auth
 
 from django.contrib.auth import authenticate, login, logout
 
