@@ -11,8 +11,8 @@ class Chango(models.Model):
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
         )
-    fechaCreacion = models.DateTimeField(default=now)
-    fechaPago = models.DateTimeField(null=True)
+    fechaHoraCreacion = models.DateTimeField(default=now)
+    fechaHoraPago = models.DateTimeField(null=True)
     fuePagado = models.BooleanField(default=False)
         
     def agregarProducto(self, producto: Producto, cantidad=1):
@@ -29,7 +29,8 @@ class Chango(models.Model):
         ChangoXproducto.objects.get(chango=self, producto=producto).delete()
     
     def cerrarCompra(self):
-        self.fechaPago = now()
+        self._validarPuedeCerrarse()
+        self.fechaHoraPago = now()
         self.fuePagado = True
         Venta.registrarVenta(self)
         self.save()
@@ -39,6 +40,13 @@ class Chango(models.Model):
 
     def getProductos(self):
         return ChangoXproducto.objects.filter(chango=self)
+
+    def _validarPuedeCerrarse(self):
+        if self.noTieneProductos():
+            raise NoPuedeCerrarseLaCompraException('Antes de cerrar la compra debe seleccionar los productos')
+
+    def noTieneProductos(self):
+        return self.getProductos().count() <= 0
 
     @staticmethod
     def carritoDelUsuario(usuario: User):
@@ -53,7 +61,7 @@ class ChangoXproducto(models.Model):
         'productos.Producto',
         on_delete=models.CASCADE,
         )
-    cantidad = models.PositiveIntegerField()
+    cantidad = models.PositiveIntegerField(validators=[MinValueValidator(1)])
     precio = models.DecimalField(max_digits=25, decimal_places=2, validators=[MinValueValidator(0)])
 
     def desnormalizarPrecio(self) -> None:
@@ -62,3 +70,6 @@ class ChangoXproducto(models.Model):
     
     def __str__(self):
         return self.producto.__str__()
+
+class NoPuedeCerrarseLaCompraException(Exception):
+    pass

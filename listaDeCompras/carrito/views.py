@@ -4,7 +4,7 @@ from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.contrib import auth
-from .models import Chango, ChangoXproducto
+from .models import Chango, ChangoXproducto, NoPuedeCerrarseLaCompraException
 from .forms import AgregarProductoForm, ImageForm
 from productos.models import Producto
 from obtenedorDeProductos.models import ObtenedorDeProductos
@@ -104,11 +104,13 @@ class ChangoController():
     def cerrarCompra(request):
         ChangoController.eliminarDefaultsSession(request)
         chango = ChangoController.getChangoUser(request)
-        chango.cerrarCompra()
+        try:
+            chango.cerrarCompra()
+        except NoPuedeCerrarseLaCompraException as e:
+            return HttpResponse(e.__str__())
+
         usuario = ChangoController.getUser(request)
         nuevoChango = Chango(usuario=usuario)
         nuevoChango.save()
         return HttpResponse('Gracias por su compra, sera atendido por nuestros cajeros en un instante!')
-
-    
     

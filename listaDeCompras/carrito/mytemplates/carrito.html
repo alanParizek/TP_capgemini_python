@@ -47,7 +47,8 @@
     </ul>
 
     <div>
-        <form action="/usuario/venta/" method="POST">
+        <form action="/usuario/carrito/venta/" method="POST">
+            {% csrf_token %}
             <input type="submit" value="Cerrar Compra">
         </form>
     </div>
