@@ -31,7 +31,7 @@ class ChangoController():
         chango = ChangoController.getChangoUser(request)
         itemsCarrito = map(
             lambda changoProd: {"changoXprod": changoProd,
-                                "unidad": (Producto.objects.get_subclass(pk=changoProd.producto_id)).unidad},
+                                "unidad": (Producto.objects.get_subclass(pk=changoProd.producto)).unidad},
             ChangoXproducto.objects.filter(chango=chango)
             )
         listaDePrecios = Producto.listaDePrecios()
@@ -60,7 +60,7 @@ class ChangoController():
         if not formImagen.is_valid():
             return redirect('carrito')
         image_field = formImagen.cleaned_data['img']
-        imagen: Image = Image.open(image_field)
+        imagen = Image.open(image_field)
         (producto, cantidad) = ObtenedorDeProductos().obtenerProducto(imagen)
         if producto == None: # si no se encontro el producto, setea en None los valores iniciales y asi django no los carga en el form
             request.session['valoresIniciales'] = (None, None)

@@ -21,5 +21,4 @@ urlpatterns = [
     path('registro/', registro, name = "registro"),
     path('logout/', desolguearse, name="logout"),
     path('carrito/', include('carrito.urls')),
-    path('venta/', include('ventas.urls')),
 ]
