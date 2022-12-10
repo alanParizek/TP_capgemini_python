@@ -25,6 +25,13 @@
             <input type="submit" value="Cargar Imagen">
         </form>
     </div>
+
+    {% if errorNoReconocioElProducto %}
+        <div class="textoErrorVDI">
+            <p>No se pudo reconocer el producto. Por favor intentelo de nuevo, o ingreselo manualmente.</p>
+        </div>
+    {% endif %}
+
     <div class="imageConfirm">
             <form action="/usuario/carrito/item/" method="POST">
                 {% csrf_token %}
@@ -35,23 +42,23 @@
                 <input type="submit" value="Agregar Producto">
             </form>
     </div>
-
-    {% if errorNoReconocioElProducto %}
-        <div>
-            <p>No se pudo reconocer el producto. Por favor intentelo de nuevo, o ingreselo manualmente.</p>
-        </div>
-    {% endif %}
     
-    <ul class="itemsList">
-        {% for item in itemsCarrito %}
-        <li><form action="/usuario/carrito/item/{{item.changoXprod.producto_id}}/eliminacion/" method="POST">
-            {% csrf_token %}
-            <span>{{item.changoXprod}}: {{item.changoXprod.cantidad}} - Precio: {{item.changoXprod.precio}} </span> <input type="submit" value="Eliminar Item">
-        </form></li>
-        {% endfor %}
-    </ul>
+    <div class="itemsList">
+        <ul>
+            {% for item in itemsCarrito %}
+            <li><form action="/usuario/carrito/item/{{item.changoXprod.producto_id}}/eliminacion/" method="POST">
+                {% csrf_token %}
+                <span>{{item.changoXprod}}: {{item.changoXprod.cantidad}} - Precio: {{item.changoXprod.precio}} </span> <input type="submit" value="Eliminar Item">
+            </form></li>
+            {% endfor %}
+        </ul>
+    </div>
 
-    <div>
+    <div class="totalCompra">
+        <p>El total de esta compra es: ${{total}}</p>
+    </div>
+    
+    <div class="cerrarCompra">
         <form action="/usuario/carrito/venta/" method="POST">
             {% csrf_token %}
             <input type="submit" value="Cerrar Compra">

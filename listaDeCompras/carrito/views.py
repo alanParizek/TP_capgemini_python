@@ -41,10 +41,9 @@ class ChangoController():
                                 "unidad": (Producto.objects.get_subclass(pk=changoProd.producto_id)).unidad},
             ChangoXproducto.objects.filter(chango=chango)
             )
-        listaDePrecios = Producto.listaDePrecios()
         context = {'itemsCarrito': itemsCarrito, 'formAgregarProducto': formAgregarProducto,
-                   'formSubirImagen': ImageForm(), 'listaDePrecios': listaDePrecios,
-                   'errorNoReconocioElProducto': errorVDI}
+                   'formSubirImagen': ImageForm(), 'listaDePrecios': Producto.listaDePrecios(),
+                   'errorNoReconocioElProducto': errorVDI, 'total': chango.total()}
         return render(request, "carrito.html", context)
 
     @staticmethod

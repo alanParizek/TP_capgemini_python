@@ -35,7 +35,7 @@ class Venta(models.Model):
                 'cantidad': changoXprod.cantidad.__str__(),
                 'precio': changoXprod.precio.__str__(),
                 'id_prod': changoXprod.producto.pk
-                },
+                }, 
             carrito.getItems()
             ))
         dictJson['items'] = items
