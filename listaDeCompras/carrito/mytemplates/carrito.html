@@ -34,9 +34,14 @@
                 </div>
                 <input type="submit" value="Agregar Producto">
             </form>
-            
     </div>
 
+    {% if errorNoReconocioElProducto %}
+        <div>
+            <p>No se pudo reconocer el producto. Por favor intentelo de nuevo, o ingreselo manualmente.</p>
+        </div>
+    {% endif %}
+    
     <ul class="itemsList">
         {% for item in itemsCarrito %}
         <li><form action="/usuario/carrito/item/{{item.changoXprod.producto_id}}/eliminacion/" method="POST">

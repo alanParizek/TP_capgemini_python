@@ -2,6 +2,7 @@ from django.db import models
 from datetime import datetime
 from django.conf import settings
 import json
+from productos.models import Producto
 # Create your models here.
 
 
@@ -28,19 +29,20 @@ class Venta(models.Model):
         dictJson.pop('fechaHoraCreacion')
         dictJson['fecha_hora_pago'] = formatearFechaYHora(dictJson.pop('fechaHoraPago'))
         items = list(map(
-            lambda changoXprod: {'producto': changoXprod.producto.nombre, 
+            lambda changoXprod: {
+                'producto': changoXprod.producto.nombre, 
+                'unidad': Producto.objects.get_subclass(pk=changoXprod.producto.pk).unidad,
                 'cantidad': changoXprod.cantidad.__str__(),
                 'precio': changoXprod.precio.__str__(),
-                'id_prod': changoXprod.producto.pk},
-            carrito.getProductos()
+                'id_prod': changoXprod.producto.pk
+                },
+            carrito.getItems()
             ))
         dictJson['items'] = items
         dictJson['dias_desde_ultima_compra'] = Venta._diasDesdeUltimaCompra(carrito)
         dictJson['total'] = carrito.total().__str__()
         dictJson['nombre_usuario'] = carrito.usuario.first_name
         dictJson['apellido_usuario'] = carrito.usuario.last_name
-
-        print(dictJson)
 
         print(json.dumps(dictJson))
 

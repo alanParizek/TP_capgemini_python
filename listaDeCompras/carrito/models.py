@@ -38,7 +38,7 @@ class Chango(models.Model):
     def total(self):
         return sum(map(lambda cXp: cXp.precio, ChangoXproducto.objects.filter(chango=self)))
 
-    def getProductos(self):
+    def getItems(self):
         return ChangoXproducto.objects.filter(chango=self)
 
     def _validarPuedeCerrarse(self):
@@ -46,7 +46,7 @@ class Chango(models.Model):
             raise NoPuedeCerrarseLaCompraException('Antes de cerrar la compra debe seleccionar los productos')
 
     def noTieneProductos(self):
-        return self.getProductos().count() <= 0
+        return self.getItems().count() <= 0
 
     @staticmethod
     def carritoDelUsuario(usuario: User):

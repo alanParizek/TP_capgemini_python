@@ -23,10 +23,17 @@ class ChangoController():
     @login_required()
     def verCarrito(request):
         # agrega el formulario para agregar el producto. Si los tiene cargados, muestra los valores iniciales
+
         try:
+            print(request.session['valoresIniciales'])
             formAgregarProducto = AgregarProductoForm.formularioConValoresIniciales(request.session['valoresIniciales'])
         except:
+            print('tiroerror')
             formAgregarProducto = AgregarProductoForm()
+        errorVDI = False
+        if request.session.has_key('valoresIniciales'):
+            errorVDI = request.session['valoresIniciales'] == [None, None]
+        print(errorVDI)
         # agrega los items del carrito para mostrar
         chango = ChangoController.getChangoUser(request)
         itemsCarrito = map(
@@ -36,7 +43,8 @@ class ChangoController():
             )
         listaDePrecios = Producto.listaDePrecios()
         context = {'itemsCarrito': itemsCarrito, 'formAgregarProducto': formAgregarProducto,
-                   'formSubirImagen': ImageForm(), 'listaDePrecios': listaDePrecios}
+                   'formSubirImagen': ImageForm(), 'listaDePrecios': listaDePrecios,
+                   'errorNoReconocioElProducto': errorVDI}
         return render(request, "carrito.html", context)
 
     @staticmethod
