@@ -20,7 +20,7 @@ from django.conf import settings
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('usuario/', include('usuarios.urls')), # ahora /usuario/inicio lleva al login
-    path('', RedirectView.as_view(url='usuario/inicio'), name='login-redirect')
-    # path('carrito/', include('carrito.urls')), ahorra /carrito/carrito lleva al carrito
+    path('usuario/', include('usuarios.urls')),
+    path('caja/', include('ventas.urls')),
+    path('', RedirectView.as_view(url='usuario/inicio'), name='login-redirect'),
 ]

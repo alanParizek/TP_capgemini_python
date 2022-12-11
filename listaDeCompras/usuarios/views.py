@@ -1,9 +1,7 @@
 from django.shortcuts import render, redirect
 # from django.forms import inlineformset_factory
-from django.contrib.auth.models import User
 from carrito.models import Chango
 from .forms import SignUpForm
-from django.contrib import auth
 
 from django.contrib.auth import authenticate, login, logout
 
@@ -13,13 +11,23 @@ def inicio(request):
         password = request.POST.get('password')
 
         user = authenticate(request, username = username, password = password)
-
+    
         if user is not None:
             login(request, user)
-            return redirect('carrito')
+            return redirectDondeCorresponda(user)
 
     context = {}
     return render(request, "login.html", context)
+
+def redirectDondeCorresponda(user):
+    if user.is_staff:
+        print("es cajero")
+        return redirect('ver_ventas')
+    else:
+        print("es cliente")
+        return redirect('carrito')
+
+
 
 def registro(request):
     form = SignUpForm()

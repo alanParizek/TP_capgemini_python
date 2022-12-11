@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'styles/carrito.css' %}">
+</head>
+<body>
+    <div class="mensajeGracias">
+        <p>Gracias por su compra, sera atendido por nuestros cajeros en un instante!</p>
+    </div>
+    <br>
+    <br>
+    <div class="volverCarrito">
+        <div>
+            <a href="{% url 'carrito' %}">Hacer otra compra</a>
+        </div>  
+    </div>
+    <!-- <form action="" method="POST">
+        <input type="submit" name="Hacer Otra Compra">
+    </form> -->
+</body>
+</html>

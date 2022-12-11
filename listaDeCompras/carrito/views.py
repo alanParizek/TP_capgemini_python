@@ -2,7 +2,6 @@ from PIL import Image
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.models import User
 from django.contrib import auth
 from .models import Chango, ChangoXproducto, NoPuedeCerrarseLaCompraException
 from .forms import AgregarProductoForm, ImageForm
@@ -119,5 +118,5 @@ class ChangoController():
         usuario = ChangoController.getUser(request)
         nuevoChango = Chango(usuario=usuario)
         nuevoChango.save()
-        return HttpResponse('Gracias por su compra, sera atendido por nuestros cajeros en un instante!')
+        return render(request, 'compraCerrada.html')
     

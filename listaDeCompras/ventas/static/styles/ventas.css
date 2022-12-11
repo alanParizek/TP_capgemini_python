@@ -1,0 +1,44 @@
+body {
+    margin: 0;
+    padding: 0;
+    justify-content: center;
+    background: url(../images/background.jpg) center top;
+    background-repeat: repeat;
+    background-size: cover;
+    font-family: sans-serif;
+    height: 100vh;
+}
+
+.itemsList, .venta {
+    width: 1000px;
+    padding: 10px;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: auto;
+}
+
+.venta {
+    background: #e73c31;
+    flex-direction: row;
+    justify-content: space-between;
+    border: 1px solid white;
+    margin: 20px 0;
+}
+
+.botonCobrar {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.logout form{
+    background-color: #e73c31;
+    display: flex;
+    text-decoration: none;
+    justify-content: end;
+    color: white;
+    font-size: 18px;
+    padding: 10px;
+}

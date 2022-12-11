@@ -2,13 +2,14 @@ body {
     margin: 0;
     padding: 0;
     justify-content: center;
-    background: url(../images/background.jpg) no-repeat center top;
+    background: url(../images/background.jpg) center top;
+    background-repeat: repeat;
     background-size: cover;
     font-family: sans-serif;
     height: 100vh;
 }
 
-.imageLoader, .imageConfirm, .cerrarCompra, .itemsList, .textoErrorVDI, .totalCompra {
+.imageLoader, .imageConfirm, .cerrarCompra, .itemsList, .mensajeGracias, .textoErrorVDI, .totalCompra {
     width: 1000px;
     padding: 10px;
     background: #e73c31;
@@ -36,4 +37,20 @@ body {
     color: white;
     font-size: 0.7rem;
     padding: 0;
+}
+
+.volverCarrito {
+    display: flex;
+    justify-content: center;
+}
+.volverCarrito div {
+    background-color: #e73c31;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 5px;
+}
+
+.volverCarrito a {
+    text-decoration: none;
+    color: white;
 }

@@ -6,28 +6,30 @@ from productos.models import Producto
 # Create your models here.
 
 
-class Venta(models.Model):
-    usuario = models.ForeignKey(
-        settings.AUTH_USER_MODEL,
-        on_delete=models.CASCADE,
+class Venta(models.Model):    
+    carrito = models.ForeignKey(
+        'carrito.Chango',
+        null=True,
+        on_delete=models.SET_NULL,
         )
+    fechaHoraPago = models.DateTimeField(null=True)
     jsonText = models.TextField()
     
-    @staticmethod
-    def registrarVenta(carrito):
-        json = Venta.crearTextoJson(carrito)
-        venta = Venta(usuario=carrito.usuario, jsonText=json)
-        venta.save()
-        # arma la venta con el carrito y la guarda en la DB
+    def cobrar(self):
+        self.fechaHoraPago = datetime.now()
+        self.guardarJson()
+        self.save()
+
+    def guardarJson(self):
+        self.jsonText = self.crearTextoJson()
     
-    @staticmethod
-    def crearTextoJson(carrito) -> str:
+    def crearTextoJson(self) -> str:
+        carrito = self.carrito
         dictJson = carrito.__dict__.copy()
         dictJson['idCarrito'] = dictJson.pop('id') #Cambiando nombre a la key id del carrito
-        dictJson.pop('fuePagado')
         dictJson.pop('_state')
         dictJson.pop('fechaHoraCreacion')
-        dictJson['fecha_hora_pago'] = formatearFechaYHora(dictJson.pop('fechaHoraPago'))
+        dictJson['fecha_hora_cierre_carrito'] = formatearFechaYHora(dictJson.pop('fechaHoraCierre'))
         items = list(map(
             lambda changoXprod: {
                 'producto': changoXprod.producto.nombre, 
@@ -39,24 +41,21 @@ class Venta(models.Model):
             carrito.getItems()
             ))
         dictJson['items'] = items
-        dictJson['dias_desde_ultima_compra'] = Venta._diasDesdeUltimaCompra(carrito)
+        dictJson['dias_desde_ultima_compra'] = carrito.diasDesdeUltimaCompra()
         dictJson['total'] = carrito.total().__str__()
         dictJson['nombre_usuario'] = carrito.usuario.first_name
         dictJson['apellido_usuario'] = carrito.usuario.last_name
-
-        print(json.dumps(dictJson))
-
         return json.dumps(dictJson)
+    
+    @staticmethod
+    def registrarVenta(carrito):
+        venta = Venta(carrito=carrito)
+        venta.save()
+        # arma la venta con el carrito y la guarda en la DB
 
     @staticmethod
-    def _diasDesdeUltimaCompra(carrito):
-        return diferenciaDias(
-            carrito.fechaHoraPago,
-            carrito.fechaHoraCreacion
-        )
-
-def diferenciaDias(f1, f2):
-    return abs(f1 - f2).days
+    def pendientesDePago():
+        return Venta.objects.filter(fechaHoraPago=None)
 
 def formatearFechaYHora(fecha):
     return fecha.strftime('%d/%m/%Y %H:%M:%S')

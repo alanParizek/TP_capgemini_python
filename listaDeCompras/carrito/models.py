@@ -3,19 +3,26 @@ from django.db import models
 from productos.models import Producto
 from django.conf import settings
 from django.contrib.auth.models import User
-from django.utils.timezone import now
 from ventas.models import Venta
+from datetime import datetime as dt
 
 class Chango(models.Model):
     usuario = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
         )
-    fechaHoraCreacion = models.DateTimeField(default=now)
-    fechaHoraPago = models.DateTimeField(null=True)
-    fuePagado = models.BooleanField(default=False)
-        
+    fechaHoraCreacion = models.DateTimeField(default=dt.now())
+    fechaHoraCierre = models.DateTimeField(null=True)
+    @property
+    def estaAbierto(self):
+        return self.fechaHoraCierre is None
+
+    def validarPuedeModificarse(self):
+        if not self.estaAbierto:
+            raise NoPuedeModificarseException('No se puede modificar un carrito cerrado')
+
     def agregarProducto(self, producto: Producto, cantidad=1):
+        self.validarPuedeModificarse()
         try:
             cXp = ChangoXproducto.objects.get(chango=self, producto=producto)
         except ChangoXproducto.DoesNotExist:
@@ -25,13 +32,13 @@ class Chango(models.Model):
         cXp.save()
     
     def sacarTodosDeUnProducto(self, producto: Producto):
-        # Validar que este en el carrito?
+        self.validarPuedeModificarse()
         ChangoXproducto.objects.get(chango=self, producto=producto).delete()
     
     def cerrarCompra(self):
+        self.validarPuedeModificarse()
         self._validarPuedeCerrarse()
-        self.fechaHoraPago = now()
-        self.fuePagado = True
+        self.fechaHoraCierre = dt.now()
         Venta.registrarVenta(self)
         self.save()
 
@@ -47,10 +54,16 @@ class Chango(models.Model):
 
     def noTieneProductos(self):
         return self.getItems().count() <= 0
+    
+    def diasDesdeUltimaCompra(self):
+        return diferenciaDias(
+            self.fechaHoraCierre,
+            self.fechaHoraCreacion
+        )
 
     @staticmethod
     def carritoDelUsuario(usuario: User):
-        return Chango.objects.get(usuario=usuario, fuePagado=False)
+        return Chango.objects.get(usuario=usuario, fechaHoraCierre=None)
 
 class ChangoXproducto(models.Model):
     chango = models.ForeignKey(
@@ -70,6 +83,12 @@ class ChangoXproducto(models.Model):
     
     def __str__(self):
         return self.producto.__str__()
+    
+def diferenciaDias(f1, f2):
+    return abs(f1 - f2).days
 
 class NoPuedeCerrarseLaCompraException(Exception):
+    pass
+
+class NoPuedeModificarseException(Exception):
     pass

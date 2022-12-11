@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Caja</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'styles/ventas.css' %}">
+</head>
+<body>
+    <div class="logout">
+        <form action="/usuario/logout/" method="POST">
+            {% csrf_token %}
+            <input type="submit" value="Log Out">
+        </form>
+    </div>
+    <br>
+    <br>
+    <div class="itemsList">
+        {% for venta in ventasPendientes %}
+        <form action="/caja/venta/{{venta.pk}}/cobrar/" method="POST" class="venta">
+            {% csrf_token %}
+            <ul>
+                <li>Nro de venta: {{venta.pk}}</li>
+                <li>Cliente: {{venta.carrito.usuario.first_name}} {{venta.carrito.usuario.last_name}}</li>
+                <li>Total compra: {{venta.carrito.total}}</li>
+            </ul>
+            <div class="botonCobrar">
+                <input type="submit" value="Cobrar Chango">
+            </div>
+        </form>
+        {% endfor %}
+    </div>
+</body>
+</html>
