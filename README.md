@@ -51,7 +51,15 @@ Click the button named “Cerrar Compra” to inform the cashier the purchase pr
 
 Once you have finished shopping you can log out by clicking on the “Log Out” button placed on the top-right corner on the screen.
 
+#### Demo video:
+https://user-images.githubusercontent.com/82058481/207932021-7f79fa28-53af-4181-86ed-17dd5c1605d0.mp4
+  
 ### As a cashier
 First, you will need to log in. If you do not have an account yet, ask your manager to create an account for you.
 
 Once you have logged in, you’ll be redirected to the cart page, where you’ll see all the purchases that haven’t been paid. It will show you the purchase id, the customer name and the total purchase price. Once you’ve charged the customer, click on the “Cobrar Chango” button next to that purchase to register the payment.
+  
+#### Demo video:
+https://user-images.githubusercontent.com/82058481/207932163-828d9752-a71f-42de-a922-d30951e7c462.mp4
+
+
